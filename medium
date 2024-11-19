@@ -1,0 +1,64 @@
+//Problem: Find the top 3 students with the highest marks from a list of students.
+csharp
+Copy code
+var topStudents = students.OrderByDescending(s => s.Marks)
+                           .Take(3)
+                           .ToList();
+
+
+//Group Records by a Property
+Problem: Group employees by department and list the employees in each department.
+csharp
+Copy code
+var groupedEmployees = employees.GroupBy(e => e.Department)
+                                .Select(group => new 
+                                {
+                                    Department = group.Key,
+                                    Employees = group.ToList()
+                                }).ToList();
+
+// Find Common Elements Between Two Collections
+Problem: Find common products that are sold in two different stores.
+csharp
+Copy code
+var commonProducts = store1Products.Intersect(store2Products).ToList();
+
+
+// Filter and Transform Data
+//Problem: Get a list of employee names who are above 30 years old and their salaries, then project them to a new format.
+csharp
+Copy code
+var result = employees.Where(e => e.Age > 30)
+                      .Select(e => new { e.Name, e.Salary })
+                      .ToList();
+
+
+//Join Two Collections
+Problem: Join a list of employees with a list of departments to show the employee name and department name.
+csharp
+Copy code
+var employeeDepartments = from e in employees
+                          join d in departments on e.DepartmentId equals d.Id
+                          select new { e.Name, d.DepartmentName };
+
+// Aggregate Data
+Problem: Find the average salary of employees in each department.
+csharp
+Copy code
+var averageSalaryByDepartment = employees.GroupBy(e => e.Department)
+                                         .Select(g => new { Department = g.Key, AverageSalary = g.Average(e => e.Salary) })
+                                         .ToList();
+
+//Problem: Sort employees first by age (ascending), then by salary (descending).
+csharp
+Copy code
+var sortedEmployees = employees.OrderBy(e => e.Age)
+                               .ThenByDescending(e => e.Salary)
+                               .ToList();
+//Skip and Take for Pagination
+Problem: Implement pagination (skip the first 5 records and take the next 10 records).
+csharp
+Copy code
+var pagedEmployees = employees.Skip(5)
+                              .Take(10)
+                              .ToList();
